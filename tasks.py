@@ -32,6 +32,8 @@ def findTask(taskID):
         if t["id"] == taskID:
             return t
 
+    return None
+
 def updateTask(taskID, taskName):
     task = findTask(taskID)
 
@@ -44,9 +46,9 @@ def updateTask(taskID, taskName):
 def removeTask(taskID):
     task = findTask(taskID)
 
-    for t in tasks:
-        if t["id"] == taskID:
-            task.remove(t)
-            return True
+    if task:
+        task.remove(task)
+        print("Task removed successfully")
 
-    print("Not found")
+    else:
+        print("Not found")
