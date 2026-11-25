@@ -1,48 +1,40 @@
-queue = []
+from tasks import *
+
+taskQueue = []
 
 
-def addTaskToQueue(taskID, tasks):
-    task = None
-    for item in tasks:
-        if item["id"] == taskID:
-            task = item
-            break
+def addQueue(taskID):
+    try:
+        if taskID in taskQueue:
+            print("task is already in queue")
+            return False
 
-    if task is None:
-        print("Task not found!")
-        return
+        taskQueue.append(taskID)
+        print("task added to queue")
+        return True
 
-    if task["status"] != "pending":
-        print("Only pending tasks can be added to the queue!")
-        return
-
-    for queuedTask in queue:
-        if queuedTask["id"] == taskID:
-            print("Task is already in the queue!")
-            return
-
-    queue.append(task)
-    print("Task '{}' added to queue!".format(task["name"]))
+    except Exception as e:
+        print(e)
+        return False
 
 
-def completeNextTask():
-    if not queue:
-        print("Queue is empty!")
+def deleteQueue():
+    try:
+        return taskQueue.pop(0)
+    except Exception as e:
+        print(e)
         return None
-
-    task = queue.pop(0)
-    task["status"] = "completed"
-    print("Task '{}' completed!".format(task["name"]))
-    return task
 
 
 def showQueue():
-    if not queue:
-        print("Queue is empty!")
-        return
+    try:
+        if not taskQueue:
+            print("queue is empty")
+            return
 
-    print("Task queue:")
-    position = 1
-    for task in queue:
-        print(position, ". ID:", task["id"], "| Name:", task["name"])
-        position += 1
+        for taskID in taskQueue:
+            task = findTask(taskID)
+            print(f"ID: {taskID} - {task['name']} ({task['status']})")
+
+    except Exception as e:
+        print("Error:", e)
