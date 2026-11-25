@@ -1,30 +1,31 @@
-completedTask = []
+completedTasks = []
+
+def addCompleted(task):
+    try:
+        node = {}
+
+        node["data"] = task.copy()
+        node["next"] = None
+
+        if completedTasks:
+            completedTasks[-1]["next"] = node
+
+        completedTasks.append(node)
+
+    except Exception as e:
+        print("Error:", e)
 
 
-def addCompletedTask(task):
 
-    node = {}
+def showCompleted():
+    try:
+        if not completedTasks:
+            print("no completed tasks")
+            return
 
-    node["data"] = task.copy()
-    node["next"] = None
+        for node in completedTasks:
+            task = node["data"]
+            print("ID:", task["id"], "| Name:", task["name"], "| Status:", task["status"])
 
-    if completedTask is None:
-        completedTask.append(node)
-        return
-
-    current = completedTask
-    while current["next"] is not None:
-        current = current["next"]
-
-    current["next"] = node
-
-
-def showCompletedTasks():
-    if completedTask is None:
-        print("No completed tasks!")
-        return
-
-    current = completedTask
-    while current is not None:
-        task = current["data"]
-        print(f"ID: {task["id"]}, Name: {task["name"]} ")
+    except Exception as e:
+        print("Error:", e)

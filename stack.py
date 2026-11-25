@@ -12,10 +12,10 @@ def undo(tasks):
 
     lastTask = stack.pop()
 
-    for index, task in enumerate(tasks):
+    for task in tasks:
         if task["id"] == lastTask["id"]:
-            del tasks[index]
-            print("Undo: '{}' deleted.".format(lastTask["name"]))
+            tasks.remove(task)
+            print(f"Undo: {lastTask["name"]} deleted.")
             return
 
-    print("Task was already deleted")
+    print("Task was already deleted!")
