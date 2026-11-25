@@ -13,4 +13,4 @@ def showMenu():
     0. Exit    
     """)
 
-    
+showMenu()
