@@ -47,7 +47,7 @@ def removeTask(taskID):
     task = findTask(taskID)
 
     if task:
-        task.remove(task)
+        tasks.remove(task)
         print("Task removed successfully")
 
     else:

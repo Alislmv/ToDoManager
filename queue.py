@@ -19,11 +19,10 @@ def addQueue(taskID):
 
 
 def deleteQueue():
-    try:
-        return taskQueue.pop(0)
-    except Exception as e:
-        print(e)
+    if not taskQueue:
+        print("queue is empty")
         return None
+    return taskQueue.pop(0)
 
 
 def showQueue():

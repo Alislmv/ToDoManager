@@ -1,21 +1,43 @@
 stack = []
 
 
-def push(task):
-    stack.append(task.copy())
+def push(tasks, taskQueue):
+    try:
+        savedTasks = []
+
+        for task in tasks:
+            savedTasks.append(task.copy())
+
+        savedQueue = []
+
+        for taskID in taskQueue:
+            savedQueue.append(taskID)
+
+        stack.append([savedTasks, savedQueue])
+
+    except Exception as e:
+        print("Stack error:", e)
 
 
-def undo(tasks):
-    if not stack:
-        print("Undo history is empty!")
-        return
+def undo(tasks, taskQueue):
+    try:
+        if len(stack) == 0:
+            print("undo history is empty")
+            return False
 
-    lastTask = stack.pop()
+        oldTasks, oldQueue = stack.pop()
 
-    for task in tasks:
-        if task["id"] == lastTask["id"]:
-            tasks.remove(task)
-            print(f"Undo: {lastTask["name"]} deleted.")
-            return
+        tasks.clear()
+        for task in oldTasks:
+            tasks.append(task)
 
-    print("Task was already deleted!")
+        taskQueue.clear()
+        for taskID in oldQueue:
+            taskQueue.append(taskID)
+
+        print("Undo done")
+        return True
+
+    except Exception as e:
+        print(e)
+        return False
